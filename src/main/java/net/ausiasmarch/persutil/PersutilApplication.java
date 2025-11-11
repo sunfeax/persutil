@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class PersutilApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(PersutilApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(PersutilApplication.class, args);
+    }
 }
