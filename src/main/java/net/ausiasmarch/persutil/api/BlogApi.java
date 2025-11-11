@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.ausiasmarch.persutil.service.AleatorioService;
 import net.ausiasmarch.persutil.service.BlogService;
+import net.ausiasmarch.persutil.service.BlogServiceRandom;
 
 @RestController
 @RequestMapping("/blog")
@@ -20,6 +21,9 @@ public class BlogApi {
 
     @Autowired
     BlogService bs;
+
+    @Autowired
+    BlogServiceRandom bsr;
 
     @GetMapping("")
     public ResponseEntity<String> blog() {
@@ -47,5 +51,10 @@ public class BlogApi {
     @GetMapping("/rellenauno")
     public ResponseEntity<Long> rellenaBlog() {
         return ResponseEntity.ok(bs.rellenaBlog());
+    }
+
+    @GetMapping("/rellena_aleatorio")
+    public ResponseEntity<Long> rellenaBlogAleatorio() {
+        return ResponseEntity.ok(bsr.rellenaBlogAleatorio());
     }
 }
