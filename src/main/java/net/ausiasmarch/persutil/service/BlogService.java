@@ -35,4 +35,20 @@ public class BlogService {
         blogRepository.save(blogEntity);
         return blogEntity.getId();
     }
+
+    public Long update(BlogEntity blogEntity) {
+        BlogEntity existingBlog = blogRepository.findById(blogEntity.getId())
+                .orElseThrow(() -> new RuntimeException("Blog not found"));
+        existingBlog.setTitulo(blogEntity.getTitulo());
+        existingBlog.setContenido(blogEntity.getContenido());
+        existingBlog.setEtiquetas(blogEntity.getEtiquetas());
+        existingBlog.setFechaModificacion(LocalDateTime.now());
+        blogRepository.save(existingBlog);
+        return existingBlog.getId();
+    }
+
+    public Long delete(Long id) {
+        blogRepository.deleteById(id);
+        return id;
+    }
 }

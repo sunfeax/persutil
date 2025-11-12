@@ -3,9 +3,11 @@ package net.ausiasmarch.persutil.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -75,24 +77,18 @@ public class BlogApi {
         return ResponseEntity.ok(blogService.get(id));
     }
 
-    // @PostMapping("")
-    // public ResponseEntity<Long> create(@RequestBody BlogEntity newBlog) {
-    // // 1. Вызов сервиса для создания и сохранения сущности
-    // Long newId = blogService.create(newBlog);
-
-    // // 2. Возвращаем HTTP-ответ со статусом 201 (Created)
-    // // и идентификатором созданного ресурса в теле ответа.
-    // return ResponseEntity.status(201).body(newId);
-
-    // // Альтернативный вариант, использующий .created(URI) для соответствия
-    // // REST-принципам:
-    // /*
-    // * return ResponseEntity.created(URI.create("/blogs/" + newId)).body(newId);
-    // */
-    // }
-
     @PostMapping("")
     public ResponseEntity<Long> create(@RequestBody BlogEntity blogEntity) {
         return ResponseEntity.ok(blogService.create(blogEntity));
+    }
+
+    @PutMapping("")
+    public ResponseEntity<Long> update(@RequestBody BlogEntity blogEntity) {
+        return ResponseEntity.ok(blogService.update(blogEntity));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> delete(@PathVariable Long id) {
+        return ResponseEntity.ok(blogService.delete(id));
     }
 }
