@@ -24,4 +24,8 @@ public class BlogService {
         br.save(be);
         return br.count();
     }
+
+    public BlogEntity get(Long id) {
+        return br.findById(id).orElseThrow(() -> new RuntimeException("Error"));
+    }
 }

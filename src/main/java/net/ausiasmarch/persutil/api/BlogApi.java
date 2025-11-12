@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.ausiasmarch.persutil.entity.BlogEntity;
 import net.ausiasmarch.persutil.service.AleatorioService;
 import net.ausiasmarch.persutil.service.BlogService;
 import net.ausiasmarch.persutil.service.BlogServiceRandom;
+import net.ausiasmarch.persutil.service.BlogServiceRandomFrases;
 
 @RestController
 @RequestMapping("/blog")
@@ -24,6 +26,9 @@ public class BlogApi {
 
     @Autowired
     BlogServiceRandom bsr;
+
+    @Autowired
+    BlogServiceRandomFrases bsrf;
 
     @GetMapping("")
     public ResponseEntity<String> blog() {
@@ -56,5 +61,15 @@ public class BlogApi {
     @GetMapping("/rellena_aleatorio")
     public ResponseEntity<Long> rellenaBlogAleatorio() {
         return ResponseEntity.ok(bsr.rellenaBlogAleatorio());
+    }
+
+    @GetMapping("/rellena_frase")
+    public ResponseEntity<Long> rellenaBlogConFrase() {
+        return ResponseEntity.ok(bsrf.rellenaBlogConFrases());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BlogEntity> get(@PathVariable Long id) {
+        return ResponseEntity.ok(bs.get(id));
     }
 }

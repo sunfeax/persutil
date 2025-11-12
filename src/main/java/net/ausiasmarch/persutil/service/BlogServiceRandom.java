@@ -14,9 +14,11 @@ public class BlogServiceRandom {
     @Autowired
     BlogRepository br;
 
-    String[] palabras = {"hola", "adiós", "por favor", "gracias", "sí", "no", "agua", "comida", "sol", "noche", "día", "casa", "calle", "libro", "mesa", "silla", "perro", "gato", "hombre", "mujer", "niño", "niña", "grande", "pequeño", "amigo"};
+    String[] palabras = { "hola", "adiós", "por favor", "gracias", "sí", "no", "agua", "comida", "sol", "noche", "día",
+            "casa", "calle", "libro", "mesa", "silla", "perro", "gato", "hombre", "mujer", "niño", "niña", "grande",
+            "pequeño", "amigo" };
 
-    public String getRandomStr(int amount) {
+    private String getRandomStr(int amount) {
         String str = "";
 
         for (int i = 0; i < amount; i++) {
