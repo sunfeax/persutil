@@ -14,7 +14,7 @@ import net.ausiasmarch.persutil.repository.BlogRepository;
 public class BlogServiceRandomFrases {
 
     @Autowired
-    BlogRepository br;
+    BlogRepository blogRepository;
 
     @Autowired
     AleatorioService as;
@@ -67,15 +67,15 @@ public class BlogServiceRandomFrases {
             AddFrases();
         }
 
-        BlogEntity be = new BlogEntity();
+        BlogEntity blogEntity = new BlogEntity();
 
-        be.setTitulo(frases.get(as.generateRandomNum(frases.size() - 1, 0)));
-        be.setContenido(AddContenido());
-        be.setEtiquetas("etiqueta1, etiqueta2");
-        be.setFechaCreacion(LocalDateTime.now());
-        be.setFechaModificacion(null);
-        br.save(be);
+        blogEntity.setTitulo(frases.get(as.generateRandomNum(frases.size() - 1, 0)));
+        blogEntity.setContenido(AddContenido());
+        blogEntity.setEtiquetas("etiqueta1, etiqueta2");
+        blogEntity.setFechaCreacion(LocalDateTime.now());
+        blogEntity.setFechaModificacion(null);
+        blogRepository.save(blogEntity);
 
-        return br.count();
+        return blogRepository.count();
     }
 }

@@ -12,20 +12,27 @@ import net.ausiasmarch.persutil.repository.BlogRepository;
 public class BlogService {
 
     @Autowired
-    BlogRepository br;
+    BlogRepository blogRepository;
 
     public Long rellenaBlog() {
-        BlogEntity be = new BlogEntity();
-        be.setTitulo("Mi primer blog");
-        be.setContenido("Contenido del blog");
-        be.setEtiquetas("etiqueta1, etiqueta2");
-        be.setFechaCreacion(LocalDateTime.now());
-        be.setFechaModificacion(null);
-        br.save(be);
-        return br.count();
+        BlogEntity blogEntity = new BlogEntity();
+        blogEntity.setTitulo("Mi primer blog");
+        blogEntity.setContenido("Contenido del blog");
+        blogEntity.setEtiquetas("etiqueta1, etiqueta2");
+        blogEntity.setFechaCreacion(LocalDateTime.now());
+        blogEntity.setFechaModificacion(null);
+        blogRepository.save(blogEntity);
+        return blogRepository.count();
     }
 
     public BlogEntity get(Long id) {
-        return br.findById(id).orElseThrow(() -> new RuntimeException("Error"));
+        return blogRepository.findById(id).orElseThrow(() -> new RuntimeException("Error"));
+    }
+
+    public Long create(BlogEntity blogEntity) {
+        blogEntity.setFechaCreacion(LocalDateTime.now());
+        blogEntity.setFechaModificacion(null);
+        blogRepository.save(blogEntity);
+        return blogEntity.getId();
     }
 }

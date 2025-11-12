@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,16 +21,16 @@ import net.ausiasmarch.persutil.service.BlogServiceRandomFrases;
 public class BlogApi {
 
     @Autowired
-    AleatorioService as;
+    AleatorioService aleatorioService;
 
     @Autowired
-    BlogService bs;
+    BlogService blogService;
 
     @Autowired
-    BlogServiceRandom bsr;
+    BlogServiceRandom blogServiceRandom;
 
     @Autowired
-    BlogServiceRandomFrases bsrf;
+    BlogServiceRandomFrases blogServiceRandomFrases;
 
     @GetMapping("")
     public ResponseEntity<String> blog() {
@@ -50,26 +52,47 @@ public class BlogApi {
     public ResponseEntity<Integer> aleatorioRange(
             @PathVariable int min,
             @PathVariable int max) {
-        return ResponseEntity.ok(as.generateRandomNum(max, min));
+        return ResponseEntity.ok(aleatorioService.generateRandomNum(max, min));
     }
 
     @GetMapping("/rellenauno")
     public ResponseEntity<Long> rellenaBlog() {
-        return ResponseEntity.ok(bs.rellenaBlog());
+        return ResponseEntity.ok(blogService.rellenaBlog());
     }
 
     @GetMapping("/rellena_aleatorio")
     public ResponseEntity<Long> rellenaBlogAleatorio() {
-        return ResponseEntity.ok(bsr.rellenaBlogAleatorio());
+        return ResponseEntity.ok(blogServiceRandom.rellenaBlogAleatorio());
     }
 
     @GetMapping("/rellena_frase")
     public ResponseEntity<Long> rellenaBlogConFrase() {
-        return ResponseEntity.ok(bsrf.rellenaBlogConFrases());
+        return ResponseEntity.ok(blogServiceRandomFrases.rellenaBlogConFrases());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BlogEntity> get(@PathVariable Long id) {
-        return ResponseEntity.ok(bs.get(id));
+        return ResponseEntity.ok(blogService.get(id));
+    }
+
+    // @PostMapping("")
+    // public ResponseEntity<Long> create(@RequestBody BlogEntity newBlog) {
+    // // 1. Вызов сервиса для создания и сохранения сущности
+    // Long newId = blogService.create(newBlog);
+
+    // // 2. Возвращаем HTTP-ответ со статусом 201 (Created)
+    // // и идентификатором созданного ресурса в теле ответа.
+    // return ResponseEntity.status(201).body(newId);
+
+    // // Альтернативный вариант, использующий .created(URI) для соответствия
+    // // REST-принципам:
+    // /*
+    // * return ResponseEntity.created(URI.create("/blogs/" + newId)).body(newId);
+    // */
+    // }
+
+    @PostMapping("")
+    public ResponseEntity<Long> create(@RequestBody BlogEntity blogEntity) {
+        return ResponseEntity.ok(blogService.create(blogEntity));
     }
 }
