@@ -24,7 +24,7 @@ import lombok.Setter;
 public class BlogEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotNull
     @Size(min = 3, max = 1024)

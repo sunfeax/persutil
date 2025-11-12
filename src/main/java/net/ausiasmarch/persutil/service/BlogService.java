@@ -16,39 +16,63 @@ public class BlogService {
 
     public Long rellenaBlog() {
         BlogEntity blogEntity = new BlogEntity();
+
         blogEntity.setTitulo("Mi primer blog");
         blogEntity.setContenido("Contenido del blog");
         blogEntity.setEtiquetas("etiqueta1, etiqueta2");
         blogEntity.setFechaCreacion(LocalDateTime.now());
         blogEntity.setFechaModificacion(null);
+
         blogRepository.save(blogEntity);
+
         return blogRepository.count();
     }
 
     public BlogEntity get(Long id) {
+
+        if (id == null) {
+            throw new IllegalArgumentException("Id must not be null for update");
+        }
+
         return blogRepository.findById(id).orElseThrow(() -> new RuntimeException("Error"));
     }
 
     public Long create(BlogEntity blogEntity) {
         blogEntity.setFechaCreacion(LocalDateTime.now());
         blogEntity.setFechaModificacion(null);
+
         blogRepository.save(blogEntity);
+
         return blogEntity.getId();
     }
 
-    public Long update(BlogEntity blogEntity) {
-        BlogEntity existingBlog = blogRepository.findById(blogEntity.getId())
+    public Long update(Long id, BlogEntity body) {
+
+        if (id == null) {
+            throw new IllegalArgumentException("Id must not be null for update");
+        }
+
+        BlogEntity existing = blogRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Blog not found"));
-        existingBlog.setTitulo(blogEntity.getTitulo());
-        existingBlog.setContenido(blogEntity.getContenido());
-        existingBlog.setEtiquetas(blogEntity.getEtiquetas());
-        existingBlog.setFechaModificacion(LocalDateTime.now());
-        blogRepository.save(existingBlog);
-        return existingBlog.getId();
+
+        existing.setTitulo(body.getTitulo());
+        existing.setContenido(body.getContenido());
+        existing.setEtiquetas(body.getEtiquetas());
+        existing.setFechaModificacion(LocalDateTime.now());
+
+        blogRepository.save(existing);
+
+        return existing.getId();
     }
 
     public Long delete(Long id) {
+
+        if (id == null) {
+            throw new IllegalArgumentException("Id must not be null for update");
+        }
+
         blogRepository.deleteById(id);
+
         return id;
     }
 }

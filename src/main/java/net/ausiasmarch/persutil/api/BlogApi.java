@@ -82,9 +82,9 @@ public class BlogApi {
         return ResponseEntity.ok(blogService.create(blogEntity));
     }
 
-    @PutMapping("")
-    public ResponseEntity<Long> update(@RequestBody BlogEntity blogEntity) {
-        return ResponseEntity.ok(blogService.update(blogEntity));
+    @PutMapping("/{id}")
+    public ResponseEntity<Long> update(@PathVariable Long id, @RequestBody BlogEntity blogEntity) {
+        return ResponseEntity.ok(blogService.update(id, blogEntity));
     }
 
     @DeleteMapping("/{id}")
