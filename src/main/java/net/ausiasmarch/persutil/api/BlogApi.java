@@ -63,7 +63,7 @@ public class BlogApi {
 
     @GetMapping("/rellena/{numPosts}")
     public ResponseEntity<Long> rellenaBlog(
-            @PathVariable int numPosts
+            @PathVariable Long numPosts
     ) {
         return ResponseEntity.ok(oBlogService.rellenaBlog(numPosts));
     }
