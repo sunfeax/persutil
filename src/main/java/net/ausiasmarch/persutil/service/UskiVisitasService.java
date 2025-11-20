@@ -17,6 +17,9 @@ public class UskiVisitasService {
     UskiVisitasRepository oUskiVisitasRepository;
 
     public UskiVisitasEntity get(Long id) {
+        if (id == null) {
+            throw new RuntimeException("Id no puede ser nulo");
+        }
         return oUskiVisitasRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Libro de visitas not found"));
     }
@@ -40,11 +43,17 @@ public class UskiVisitasService {
     }
 
     public Long delete(Long id) {
+        if (id == null) {
+            throw new RuntimeException("Id no puede ser nulo");
+        }
         oUskiVisitasRepository.deleteById(id);
         return id;
     }
 
     public Page<UskiVisitasEntity> getPage(Pageable oPageable) {
+        if (oPageable == null) {
+            throw new RuntimeException("Page no puede ser nulo");
+        }
         return oUskiVisitasRepository.findAll(oPageable);
     }
 
