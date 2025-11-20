@@ -19,8 +19,8 @@ import net.ausiasmarch.persutil.service.UskiVisitasService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping("/libro_visita")
-public class UskiVisitas {
+@RequestMapping("/visitas")
+public class UskiVisitasApi {
 
     @Autowired
     UskiVisitasService oUskiVisitasService;
