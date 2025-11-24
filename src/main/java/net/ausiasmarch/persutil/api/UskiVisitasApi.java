@@ -49,11 +49,16 @@ public class UskiVisitasApi {
         return ResponseEntity.ok(oUskiVisitasService.delete(id));
     }
 
-    // listado paginado de registros
-    @GetMapping("")
+    // listado paginado de todos los registros para admin
+    @GetMapping("/dashboard")
     public ResponseEntity<Page<UskiVisitasEntity>> getPage(Pageable oPageable) {
         return ResponseEntity.ok(oUskiVisitasService.getPage(oPageable));
+    }
 
+    // listado paginado de registros publicados
+    @GetMapping("")
+    public ResponseEntity<Page<UskiVisitasEntity>> getPublished(Pageable oPageable) {
+        return ResponseEntity.ok(oUskiVisitasService.getPublishedPage(oPageable));
     }
 
     // ¿¿¿ne ponyal dlya chego???
