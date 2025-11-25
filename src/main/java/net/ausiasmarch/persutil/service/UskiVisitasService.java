@@ -35,8 +35,9 @@ public class UskiVisitasService {
     public Long update(UskiVisitasEntity visitasEntity) {
         UskiVisitasEntity existingRegistro = oUskiVisitasRepository.findById(visitasEntity.getId())
                 .orElseThrow(() -> new RuntimeException("Libro de visitas not found"));
-        existingRegistro.setNombre(visitasEntity.getNombre());
-        existingRegistro.setComentario(visitasEntity.getComentario());
+
+        boolean nuevoEstado = !existingRegistro.isEstaPublicado();
+        existingRegistro.setEstaPublicado(nuevoEstado);
         existingRegistro.setFechaModificacion(LocalDateTime.now());
         oUskiVisitasRepository.save(existingRegistro);
         return existingRegistro.getId();
