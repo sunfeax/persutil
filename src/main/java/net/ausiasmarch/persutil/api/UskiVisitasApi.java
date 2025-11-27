@@ -61,10 +61,15 @@ public class UskiVisitasApi {
         return ResponseEntity.ok(oUskiVisitasService.getPublishedPage(oPageable));
     }
 
-    // ¿¿¿ne ponyal dlya chego???
+    // devolver cantidad de los registros
     @GetMapping("/count")
     public ResponseEntity<Long> count() {
         return ResponseEntity.ok(oUskiVisitasService.count());
     }
 
+    // rellenar datos fake visitas
+    @GetMapping("/rellena/{numPosts}")
+    public ResponseEntity<Long> rellenaBlog(@PathVariable Long numPosts) {
+        return ResponseEntity.ok(oUskiVisitasService.rellenaBlog(numPosts));
+    }
 }
