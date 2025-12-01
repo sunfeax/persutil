@@ -296,7 +296,7 @@ ALTER TABLE `sempertegui_pelicula`
 -- Indexes for table `soares`
 --
 ALTER TABLE `soares`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);oBlogEntity
 
 --
 -- Indexes for table `tarea`
@@ -385,20 +385,4 @@ ALTER TABLE `soares`
 --
 ALTER TABLE `tarea`
   MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
-
-CREATE TABLE `uski_libro_visita` (
-  `id` bigint NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `comentario` varchar(1024) NOT NULL,
-  `fecha_creacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `fecha_modificacion` timestamp NULL DEFAULT NULL,
-  `esta_publicado` tinyint(1) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-ALTER TABLE `uski_libro_visita`
-  ADD PRIMARY KEY (`id`);
-
-ALTER TABLE `uski_libro_visita`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
-
 COMMIT;
