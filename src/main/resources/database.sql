@@ -112,6 +112,39 @@ ALTER TABLE `alfonso_respuesta`
 ALTER TABLE `blog`
   MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 
+-- --------------Joan Salinas------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `receta`
+--
+
+CREATE TABLE `receta` (
+  `id` bigint NOT NULL,
+  `nombre` varchar(1024) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `ingredientes` longtext CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `preparacion` longtext CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `fecha_creacion` datetime NOT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `receta`
+--
+ALTER TABLE `receta`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `receta`
+--
+ALTER TABLE `receta`
 CREATE TABLE `alcalde` (
   `id` bigint NOT NULL,
   `titulo` varchar(255) COLLATE utf32_unicode_ci NOT NULL,
