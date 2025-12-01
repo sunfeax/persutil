@@ -30,6 +30,21 @@ CREATE TABLE `blog` (
   `fecha_modificacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `alfonso_respuesta`
+--
+
+CREATE TABLE `alfonso_respuesta` (
+  `id` bigint NOT NULL,
+  `autor` varchar(128) COLLATE utf32_unicode_ci NOT NULL,
+  `contenido` longtext COLLATE utf32_unicode_ci NOT NULL,
+  `publicado` tinyint(1) NOT NULL DEFAULT '1',
+  `fecha_creacion` datetime NOT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
 --
 -- Índices para tablas volcadas
 --
@@ -41,6 +56,12 @@ ALTER TABLE `blog`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `alfonso_respuesta`
+--
+ALTER TABLE `alfonso_respuesta`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -48,6 +69,12 @@ ALTER TABLE `blog`
 -- AUTO_INCREMENT de la tabla `blog`
 --
 ALTER TABLE `blog`
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `alfonso_respuesta`
+--
+ALTER TABLE `alfonso_respuesta`
   MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 COMMIT;
 
