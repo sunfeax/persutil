@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: database:3306
--- Generation Time: Dec 01, 2025 at 07:22 AM
+-- Generation Time: Dec 01, 2025 at 06:41 PM
 -- Server version: 8.1.0
 -- PHP Version: 8.2.10
 
@@ -12,7 +12,7 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 --
--- Database: `contante`
+-- Database: `persutildb`
 --
 
 -- --------------------------------------------------------
@@ -100,16 +100,63 @@ CREATE TABLE `castanyera` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `contreras`
+--
+
+CREATE TABLE `contreras` (
+  `id` bigint NOT NULL,
+  `titulo` varchar(1024) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `contenido` longtext CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `etiquetas` varchar(1024) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `fecha_creacion` datetime NOT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `publico` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `frasesmotivacionales`
+--
+
+CREATE TABLE `frasesmotivacionales` (
+  `id` bigint NOT NULL,
+  `frase` varchar(1024) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `autor` varchar(255) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL DEFAULT 'Anónimo',
+  `es_publica` tinyint(1) NOT NULL,
+  `fecha_creacion` datetime NOT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gallery_image`
+--
+
+CREATE TABLE `gallery_image` (
+  `id` bigint NOT NULL,
+  `titulo` varchar(1024) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `descripcion` longtext CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `url_imagen` varchar(2048) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `publicado` tinyint(1) NOT NULL DEFAULT '0',
+  `fecha_creacion` datetime NOT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `garcia`
 --
 
 CREATE TABLE `garcia` (
   `id` bigint NOT NULL,
-  `titulo` varchar(1000) COLLATE utf32_unicode_ci NOT NULL,
-  `objetivo` varchar(1000) COLLATE utf32_unicode_ci NOT NULL,
+  `titulo` varchar(1000) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `objetivo` varchar(1000) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
   `fecha_inicio` datetime NOT NULL,
   `fecha_final` datetime NOT NULL,
-  `progreso` varchar(1000) COLLATE utf32_unicode_ci NOT NULL
+  `progreso` varchar(1000) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
 
 -- --------------------------------------------------------
@@ -127,6 +174,24 @@ CREATE TABLE `ideas` (
   `fecha_creacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_modificacion` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jspreguntas`
+--
+
+CREATE TABLE `jspreguntas` (
+  `id` bigint NOT NULL,
+  `question` varchar(255) CHARACTER SET utf16 COLLATE utf16_unicode_ci NOT NULL,
+  `answer1` varchar(255) CHARACTER SET utf16 COLLATE utf16_unicode_ci NOT NULL,
+  `answer2` varchar(255) CHARACTER SET utf16 COLLATE utf16_unicode_ci NOT NULL,
+  `answer3` varchar(255) CHARACTER SET utf16 COLLATE utf16_unicode_ci NOT NULL,
+  `answer4` varchar(255) CHARACTER SET utf16 COLLATE utf16_unicode_ci NOT NULL,
+  `correct` tinyint NOT NULL,
+  `create_date` datetime NOT NULL,
+  `modify_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -181,9 +246,9 @@ CREATE TABLE `recurso` (
 
 CREATE TABLE `sempertegui_pelicula` (
   `id` bigint NOT NULL,
-  `nombre` varchar(255) COLLATE utf32_unicode_ci NOT NULL,
-  `genero` varchar(255) COLLATE utf32_unicode_ci NOT NULL,
-  `director` varchar(255) COLLATE utf32_unicode_ci NOT NULL,
+  `nombre` varchar(255) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `genero` varchar(255) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `director` varchar(255) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
   `puntuacion` int NOT NULL,
   `anyo` year NOT NULL,
   `fecha_creacion` datetime NOT NULL,
@@ -221,6 +286,39 @@ CREATE TABLE `tarea` (
   `fecha_modificacion` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `uski_libro_visita`
+--
+
+CREATE TABLE `uski_libro_visita` (
+  `id` bigint NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `comentario` varchar(1024) NOT NULL,
+  `fecha_creacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_modificacion` timestamp NULL DEFAULT NULL,
+  `esta_publicado` tinyint(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `zanon`
+--
+
+CREATE TABLE `zanon` (
+  `id` bigint NOT NULL,
+  `titulo` varchar(1024) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `contenido` longtext CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `etiquetas` varchar(1024) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `fecha_creacion` datetime NOT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `duracion` int NOT NULL,
+  `dificultad` enum('baja','media','alta') CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `publico` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -256,6 +354,24 @@ ALTER TABLE `castanyera`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `contreras`
+--
+ALTER TABLE `contreras`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `frasesmotivacionales`
+--
+ALTER TABLE `frasesmotivacionales`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `gallery_image`
+--
+ALTER TABLE `gallery_image`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `garcia`
 --
 ALTER TABLE `garcia`
@@ -265,6 +381,12 @@ ALTER TABLE `garcia`
 -- Indexes for table `ideas`
 --
 ALTER TABLE `ideas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jspreguntas`
+--
+ALTER TABLE `jspreguntas`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -305,6 +427,18 @@ ALTER TABLE `tarea`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `uski_libro_visita`
+--
+ALTER TABLE `uski_libro_visita`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `zanon`
+--
+ALTER TABLE `zanon`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -339,6 +473,24 @@ ALTER TABLE `castanyera`
   MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `contreras`
+--
+ALTER TABLE `contreras`
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `frasesmotivacionales`
+--
+ALTER TABLE `frasesmotivacionales`
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `gallery_image`
+--
+ALTER TABLE `gallery_image`
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `garcia`
 --
 ALTER TABLE `garcia`
@@ -348,6 +500,12 @@ ALTER TABLE `garcia`
 -- AUTO_INCREMENT for table `ideas`
 --
 ALTER TABLE `ideas`
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `jspreguntas`
+--
+ALTER TABLE `jspreguntas`
   MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 
 --
@@ -384,5 +542,17 @@ ALTER TABLE `soares`
 -- AUTO_INCREMENT for table `tarea`
 --
 ALTER TABLE `tarea`
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `uski_libro_visita`
+--
+ALTER TABLE `uski_libro_visita`
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `zanon`
+--
+ALTER TABLE `zanon`
   MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 COMMIT;
