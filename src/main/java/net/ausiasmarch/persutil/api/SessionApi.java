@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.ausiasmarch.persutil.bean.SessionBean;
+import net.ausiasmarch.persutil.bean.TokenBean;
 import net.ausiasmarch.persutil.service.SessionService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -20,7 +21,7 @@ public class SessionApi {
     SessionService oSessionService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody SessionBean oSessionBean) {
+    public ResponseEntity<TokenBean> login(@RequestBody SessionBean oSessionBean) {
         return ResponseEntity.ok(oSessionService.login(oSessionBean));
     }
 
