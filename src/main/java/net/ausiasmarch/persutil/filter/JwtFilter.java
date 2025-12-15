@@ -2,7 +2,9 @@ package net.ausiasmarch.persutil.filter;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -10,10 +12,15 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import net.ausiasmarch.persutil.helper.JWTHelper;
+import net.ausiasmarch.persutil.service.JWTService;
+
 
 @Component
 public class JwtFilter implements Filter {
+
+
+    @Autowired
+    private JWTService oJwtService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
@@ -30,6 +37,29 @@ public class JwtFilter implements Filter {
                 System.out.println("Method: " + ((HttpServletRequest) request).getMethod());
                 System.out.println("URL: " + ((HttpServletRequest) request).getRequestURL().toString());
                 System.out.println("Auth Token: " + authToken);
+                // Validar el token JWT
+                try {
+                    // Aquí va la lógica para validar el token JWT
+                    // Si el token es válido, continuar con la cadena de filtros
+                    String username = oJwtService.validate(authToken);
+                    if (username != null) {
+                        // Si el token es válido, continuar con la cadena de filtros
+                        ((HttpServletRequest) request).setAttribute("username", username);
+                        chain.doFilter(request, response);
+                    } else {
+                        ((HttpServletRequest) request).setAttribute("username", null);
+                        // Si el token no es válido, devolver un error 401
+                        ((HttpServletResponse) response)
+                                .setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                        return;
+                    }
+                } catch (Exception e) {
+                    ((HttpServletRequest) request).setAttribute("username", null);
+                    // Si el token no es válido, devolver un error 401
+                    ((HttpServletResponse) response)
+                            .setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    return;
+                }
             } else {
                 System.out.println("Method: " + ((HttpServletRequest) request).getMethod());
                 System.out.println("URL: " + ((HttpServletRequest) request).getRequestURL().toString());
@@ -37,29 +67,7 @@ public class JwtFilter implements Filter {
                 ((HttpServletRequest) request).setAttribute("username", null);
                 chain.doFilter(request, response);
             }
-            // Validar el token JWT
-            try {
-                // Aquí va la lógica para validar el token JWT
-                // Si el token es válido, continuar con la cadena de filtros
-                String username = JWTHelper.validate(authToken);
-                if (username != null) {
-                    // Si el token es válido, continuar con la cadena de filtros
-                    ((HttpServletRequest) request).setAttribute("username", username);
-                    chain.doFilter(request, response);
-                } else {
-                    ((HttpServletRequest) request).setAttribute("username", null);
-                    // Si el token no es válido, devolver un error 401
-                    ((HttpServletResponse) response)
-                            .setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    return;
-                }
-            } catch (Exception e) {
-                ((HttpServletRequest) request).setAttribute("username", null);
-                // Si el token no es válido, devolver un error 401
-                ((HttpServletResponse) response)
-                        .setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                return;
-            }
+
         }
     }
 
