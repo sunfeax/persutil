@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ public class UskiVisitasApi {
 
     // obtener registro por id
     @GetMapping("/{id}")
-    public ResponseEntity<UskiVisitasEntity> get(@PathVariable Long id) {
+    public ResponseEntity<UskiVisitasEntity> get(@NonNull @PathVariable Long id) {
         return ResponseEntity.ok(oUskiVisitasService.get(id));
     }
 
@@ -45,20 +46,14 @@ public class UskiVisitasApi {
 
     // borrar registro
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> delete(@PathVariable Long id) {
+    public ResponseEntity<Long> delete(@NonNull @PathVariable Long id) {
         return ResponseEntity.ok(oUskiVisitasService.delete(id));
     }
 
-    // listado paginado de todos los registros para admin
-    @GetMapping("/dashboard")
-    public ResponseEntity<Page<UskiVisitasEntity>> getPage(Pageable oPageable) {
-        return ResponseEntity.ok(oUskiVisitasService.getPage(oPageable));
-    }
-
-    // listado paginado de registros publicados
+    // listado paginado de registros
     @GetMapping("")
-    public ResponseEntity<Page<UskiVisitasEntity>> getPublished(Pageable oPageable) {
-        return ResponseEntity.ok(oUskiVisitasService.getPublishedPage(oPageable));
+    public ResponseEntity<Page<UskiVisitasEntity>> getPage(@NonNull Pageable oPageable) {
+        return ResponseEntity.ok(oUskiVisitasService.getPage(oPageable));
     }
 
     // devolver cantidad de los registros
