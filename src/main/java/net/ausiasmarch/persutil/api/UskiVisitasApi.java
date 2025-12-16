@@ -14,17 +14,25 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import net.ausiasmarch.persutil.entity.UskiVisitasEntity;
 import net.ausiasmarch.persutil.service.UskiVisitasService;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST,
+        RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS })
 @RestController
 @RequestMapping("/visitas")
 public class UskiVisitasApi {
 
     @Autowired
     UskiVisitasService oUskiVisitasService;
+
+    // listado paginado de registros
+    @GetMapping("")
+    public ResponseEntity<Page<UskiVisitasEntity>> getPage(@NonNull Pageable oPageable) {
+        return ResponseEntity.ok(oUskiVisitasService.getPage(oPageable));
+    }
 
     // obtener registro por id
     @GetMapping("/{id}")
@@ -38,8 +46,14 @@ public class UskiVisitasApi {
         return ResponseEntity.ok(oUskiVisitasService.create(visitasEntity));
     }
 
+    // publicar u ocultar registro
+    @PutMapping("/publish")
+    public ResponseEntity<Long> publish(@RequestBody UskiVisitasEntity visitasEntity) {
+        return ResponseEntity.ok(oUskiVisitasService.publish(visitasEntity));
+    }
+
     // modificar registro
-    @PutMapping("")
+    @PutMapping("/update")
     public ResponseEntity<Long> update(@RequestBody UskiVisitasEntity visitasEntity) {
         return ResponseEntity.ok(oUskiVisitasService.update(visitasEntity));
     }
@@ -48,18 +62,6 @@ public class UskiVisitasApi {
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> delete(@NonNull @PathVariable Long id) {
         return ResponseEntity.ok(oUskiVisitasService.delete(id));
-    }
-
-    // listado paginado de registros
-    @GetMapping("")
-    public ResponseEntity<Page<UskiVisitasEntity>> getPage(@NonNull Pageable oPageable) {
-        return ResponseEntity.ok(oUskiVisitasService.getPage(oPageable));
-    }
-
-    // devolver cantidad de los registros
-    @GetMapping("/count")
-    public ResponseEntity<Long> count() {
-        return ResponseEntity.ok(oUskiVisitasService.count());
     }
 
     // rellenar datos fake visitas

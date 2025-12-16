@@ -85,9 +85,8 @@ public class UskiVisitasService {
     }
 
     public Long update(UskiVisitasEntity visitasEntity) {
-        if (!oSessionService.isSessionActive()) {
+        if (!oSessionService.isSessionActive())
             throw new UnauthorizedException("No active session");
-        }
 
         UskiVisitasEntity existingRegistro = oUskiVisitasRepository.findById(visitasEntity.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("The record not found."));
@@ -99,9 +98,8 @@ public class UskiVisitasService {
     }
 
     public Long publish(UskiVisitasEntity visitasEntity) {
-        if (!oSessionService.isSessionActive()) {
+        if (!oSessionService.isSessionActive())
             throw new UnauthorizedException("No active session");
-        }
 
         UskiVisitasEntity existingRegistro = oUskiVisitasRepository.findById(visitasEntity.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("The record not found."));
@@ -114,9 +112,8 @@ public class UskiVisitasService {
     }
 
     public Long delete(@NonNull Long id) {
-        if (!oSessionService.isSessionActive()) {
+        if (!oSessionService.isSessionActive())
             throw new UnauthorizedException("No active session");
-        }
 
         oUskiVisitasRepository.deleteById(id);
         return id;
@@ -128,10 +125,6 @@ public class UskiVisitasService {
         } else {
             return oUskiVisitasRepository.findAll(oPageable);
         }
-    }
-
-    public Long count() {
-        return oUskiVisitasRepository.count();
     }
 
     public Long rellenaBlog(Long numPosts) {
