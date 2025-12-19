@@ -419,7 +419,7 @@ ALTER TABLE `sempertegui_pelicula`
 -- Indexes for table `soares`
 --
 ALTER TABLE `soares`
-  ADD PRIMARY KEY (`id`);oBlogEntity
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tarea`
