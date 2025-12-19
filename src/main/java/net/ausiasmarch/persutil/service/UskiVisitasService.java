@@ -119,12 +119,15 @@ public class UskiVisitasService {
         return id;
     }
 
-    public Page<UskiVisitasEntity> getPage(@NonNull Pageable oPageable) {
+    public Page<UskiVisitasEntity> getPublicPage(Pageable pageable) {
+        return oUskiVisitasRepository.findByEstaPublicadoTrue(pageable);
+    }
+
+    public Page<UskiVisitasEntity> getAdminPage(@NonNull Pageable pageable) {
         if (!oSessionService.isSessionActive()) {
-            return oUskiVisitasRepository.findByEstaPublicadoTrue(oPageable);
-        } else {
-            return oUskiVisitasRepository.findAll(oPageable);
+            throw new UnauthorizedException("No active session");
         }
+        return oUskiVisitasRepository.findAll(pageable);
     }
 
     public Long rellenaBlog(Long numPosts) {

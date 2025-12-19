@@ -30,8 +30,14 @@ public class UskiVisitasApi {
 
     // listado paginado de registros
     @GetMapping("")
-    public ResponseEntity<Page<UskiVisitasEntity>> getPage(@NonNull Pageable oPageable) {
-        return ResponseEntity.ok(oUskiVisitasService.getPage(oPageable));
+    public ResponseEntity<Page<UskiVisitasEntity>> getPublicPage(@NonNull Pageable oPageable) {
+        return ResponseEntity.ok(oUskiVisitasService.getPublicPage(oPageable));
+    }
+
+    // listado paginado para dashboard (admin): incluye todos los registros
+    @GetMapping("/dashboard")
+    public ResponseEntity<Page<UskiVisitasEntity>> getAdminPage(@NonNull Pageable oPageable) {
+        return ResponseEntity.ok(oUskiVisitasService.getAdminPage(oPageable));
     }
 
     // obtener registro por id
