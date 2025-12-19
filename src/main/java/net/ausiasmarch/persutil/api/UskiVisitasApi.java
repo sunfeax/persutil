@@ -70,6 +70,12 @@ public class UskiVisitasApi {
         return ResponseEntity.ok(oUskiVisitasService.delete(id));
     }
 
+    // borrar todos los registros
+    @DeleteMapping("/delete_all")
+    public ResponseEntity<Long> deleteAll() {
+        return ResponseEntity.ok(oUskiVisitasService.deleteAll());
+    }
+
     // rellenar datos fake visitas
     @GetMapping("/rellena/{numPosts}")
     public ResponseEntity<Long> rellenaBlog(@PathVariable Long numPosts) {

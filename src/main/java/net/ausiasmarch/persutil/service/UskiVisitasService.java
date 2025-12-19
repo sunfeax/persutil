@@ -92,6 +92,7 @@ public class UskiVisitasService {
                 .orElseThrow(() -> new ResourceNotFoundException("The record not found."));
         existingRegistro.setNombre(visitasEntity.getNombre());
         existingRegistro.setComentario(visitasEntity.getComentario());
+        existingRegistro.setEstaPublicado(visitasEntity.isEstaPublicado());    
         existingRegistro.setFechaModificacion(LocalDateTime.now());
         oUskiVisitasRepository.save(existingRegistro);
         return existingRegistro.getId();
@@ -119,21 +120,27 @@ public class UskiVisitasService {
         return id;
     }
 
+    public Long deleteAll() {
+        if (!oSessionService.isSessionActive())
+            throw new UnauthorizedException("No active session");
+        Long total = oUskiVisitasRepository.count();
+        oUskiVisitasRepository.deleteAll();
+        return total;
+    }
+
     public Page<UskiVisitasEntity> getPublicPage(Pageable pageable) {
         return oUskiVisitasRepository.findByEstaPublicadoTrue(pageable);
     }
 
     public Page<UskiVisitasEntity> getAdminPage(@NonNull Pageable pageable) {
-        if (!oSessionService.isSessionActive()) {
+        if (!oSessionService.isSessionActive())
             throw new UnauthorizedException("No active session");
-        }
         return oUskiVisitasRepository.findAll(pageable);
     }
 
     public Long rellenaBlog(Long numPosts) {
-        if (!oSessionService.isSessionActive()) {
+        if (!oSessionService.isSessionActive())
             throw new UnauthorizedException("No active session");
-        }
 
         for (long j = 0; j < numPosts; j++) {
 
